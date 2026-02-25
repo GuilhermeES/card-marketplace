@@ -34,7 +34,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useQuasar } from "quasar";
-import Sidebar from "@/components/Sidebar/Sidebar.vue";
+import Sidebar from "@/components/sidebar/Sidebar.vue";
 
 const $q = useQuasar();
 

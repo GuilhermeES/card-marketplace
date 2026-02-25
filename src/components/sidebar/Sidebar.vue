@@ -12,9 +12,9 @@
 </template>
 
 <script setup lang="ts">
-import SidebarFooter from "@/components/Sidebar/SidebarFooter.vue";
-import SidebarNav from "@/components/Sidebar/SidebarNav.vue";
-import SidebarHeader from "@/components/Sidebar/SidebarHeader.vue";
+import SidebarFooter from "@/components/sidebar/SidebarFooter.vue";
+import SidebarNav from "@/components/sidebar/SidebarNav.vue";
+import SidebarHeader from "@/components/sidebar/SidebarHeader.vue";
 </script>
 
 <style lang="scss">

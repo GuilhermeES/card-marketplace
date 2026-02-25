@@ -19,11 +19,14 @@
         </q-item-label>
       </q-item-section>
     </q-item>
+
+    <q-btn icon="login" label="Login" class="menu__item full-width btn__primary" />
+
   </q-list>
 </template>
 
 <script setup lang="ts">
-import type { SidebarItem } from "@/components/Sidebar/sidebar.ts";
+import type { SidebarItem } from "@/components/sidebar/sidebar.ts";
 
 const topItems: SidebarItem[] = [
   { label: "Home", icon: "home", to: "/" },
