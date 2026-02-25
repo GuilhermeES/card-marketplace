@@ -7,6 +7,7 @@ import router from './router'
 
 import 'quasar/src/css/index.sass'
 import '@quasar/extras/material-icons/material-icons.css'
+import "@/styles/main.scss";
 
 const app = createApp(App)
 
@@ -16,4 +17,4 @@ app.use(Quasar, {
     plugins: {}
 })
 
-app.mount('#app')
+createApp(App).use(Quasar, {}).use(router).mount("#app");

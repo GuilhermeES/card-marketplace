@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+@import "variables";
+
+body{
+  font-family: "Cinzel", serif;
+  background: $background-color;
+  overflow-x: hidden;
+}
+
+.text-title{
+  color: white;
+}
