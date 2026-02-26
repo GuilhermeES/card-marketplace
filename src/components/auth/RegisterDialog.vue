@@ -35,10 +35,12 @@
 import { computed } from 'vue'
 import { Form } from 'vee-validate'
 import { useQuasar } from 'quasar'
+import { useUiStore } from '@/stores/ui.store'
+import { http } from '@/services/api'
+
 import NameInput from "@/components/form/NameInput.vue";
 import EmailInput from "@/components/form/EmailInput.vue";
 import PasswordInput from "@/components/form/PasswordInput.vue";
-import { useUiStore } from '@/stores/ui.store'
 
 const $q = useQuasar()
 const ui = useUiStore()
@@ -55,8 +57,24 @@ const emit = defineEmits<{
   (e: 'success', payload: any): void
 }>()
 
-function onSubmit(values: any) {
-  $q.notify({ type: 'positive', message: 'Cadastro realizado!' })
-  ui.closeAuthModal()
+async function onSubmit(values: any) {
+  try {
+    await http.post('/register', values)
+
+    $q.notify({
+      type: 'positive',
+      message: 'Cadastro realizado com sucesso!'
+    })
+
+    ui.closeAuthModal()
+
+  } catch (error: any) {
+
+    $q.notify({
+      type: 'negative',
+      message: error.response?.data?.message || 'Erro ao realizar cadastro'
+    })
+
+  }
 }
 </script>

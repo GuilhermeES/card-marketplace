@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import piniaPluginPersistence from 'pinia-plugin-persistedstate'
 import { Quasar, Notify } from 'quasar'
 
 import App from './App.vue'
@@ -13,11 +14,12 @@ import '@/plugins/vee-validate'
 
 const app = createApp(App)
 
-app.use(createPinia())
+const pinia = createPinia()
+pinia.use(piniaPluginPersistence)
+
+app.use(pinia)
 app.use(router)
 
-app.use(Quasar, {
-    plugins: { Notify },
-})
+app.use(Quasar, { plugins: { Notify } })
 
 app.mount('#app')
