@@ -20,18 +20,20 @@
       </q-item-section>
     </q-item>
 
-    <q-btn icon="login" label="Login" class="menu__item full-width btn__primary" />
+    <q-btn icon="person" label="Registrar" class="menu__item full-width btn__primary"  @click="ui.openRegister()"/>
 
   </q-list>
 </template>
 
 <script setup lang="ts">
+import { useUiStore } from '@/stores/ui.store'
 import type { SidebarItem } from "@/components/sidebar/sidebar.ts";
 
 const topItems: SidebarItem[] = [
   { label: "Home", icon: "home", to: "/" },
 ];
 
+const ui = useUiStore()
 </script>
 
 <style>

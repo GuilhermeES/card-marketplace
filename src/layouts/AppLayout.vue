@@ -1,18 +1,6 @@
 <template>
   <q-layout view="hHh Lpr fFf" class="app-shell">
-
-    <q-header elevated class="app-header" v-if="$q.screen.lt.md">
-      <q-toolbar>
-        <q-btn
-            flat
-            dense
-            round
-            icon="menu"
-            @click="toggleDrawer"
-        />
-        <q-toolbar-title></q-toolbar-title>
-      </q-toolbar>
-    </q-header>
+    <AppHeaderMobile @toggle="toggleDrawer" />
 
     <q-drawer
         v-model="leftDrawerOpen"
@@ -28,32 +16,31 @@
       <router-view />
     </q-page-container>
 
+    <RegisterDialog
+        :model-value="ui.registerOpen"
+        @update:model-value="(v: boolean) => !v && ui.closeAuthModal()"
+        @go-login="ui.switchToLogin()"
+        @success="handleRegister"
+    />
+
   </q-layout>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { useQuasar } from "quasar";
-import Sidebar from "@/components/sidebar/Sidebar.vue";
+import { ref } from 'vue'
+import Sidebar from '@/components/sidebar/Sidebar.vue'
+import AppHeaderMobile from '@/components/layouts/AppHeaderMobile.vue'
+import RegisterDialog from "@/components/auth/RegisterDialog.vue";
+import { useUiStore } from '@/stores/ui.store'
 
-const $q = useQuasar();
-
-const leftDrawerOpen = ref($q.screen.gt.md);
+const ui = useUiStore()
+const leftDrawerOpen = ref(false)
 
 function toggleDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value;
+  leftDrawerOpen.value = !leftDrawerOpen.value
+}
+
+function handleRegister(payload: { name: string; email: string; password: string }) {
+  ui.closeAuthModal()
 }
 </script>
-
-<style scoped lang="scss">
-.app-header {
-  background: $background-color;
-  backdrop-filter: blur(12px);
-}
-
-.app-drawer {
-  background: $background-color;
-  backdrop-filter: blur(14px);
-  border-right: 1px solid #000000d6;
-}
-</style>

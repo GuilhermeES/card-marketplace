@@ -1,20 +1,23 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import { Quasar } from 'quasar'
+import { Quasar, Notify } from 'quasar'
 
 import App from './App.vue'
 import router from './router'
 
-import 'quasar/src/css/index.sass'
+import 'quasar/dist/quasar.css'
 import '@quasar/extras/material-icons/material-icons.css'
-import "@/styles/main.scss";
+import 'quasar/src/css/index.sass'
+import '@/styles/main.scss'
+import '@/plugins/vee-validate'
 
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
+
 app.use(Quasar, {
-    plugins: {}
+    plugins: { Notify },
 })
 
-createApp(App).use(Quasar, {}).use(router).mount("#app");
+app.mount('#app')

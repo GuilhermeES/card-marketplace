@@ -12,5 +12,17 @@ body{
 }
 
 .btn__primary{
-  background: $btn-primary;
+  background: $btn-primary !important;
+}
+
+.q-field__native {
+  font-weight: 600; // texto digitado
+}
+
+.q-field__label {
+  font-weight: 600; // label
+}
+
+.q-field__messages{
+  font-weight: 600;
 }
