@@ -1,10 +1,10 @@
 <template>
-  <q-dialog v-model="open">
+  <q-dialog v-model="open" class="dialog-blur">
     <q-card style="min-width: 380px;">
       <q-card-section class="row items-center q-pb-sm">
         <div class="row items-center q-gutter-sm">
           <q-icon name="person" size="22px" />
-          <div class="text-h6">Login</div>
+          <div class="text-h6 text-cinzel text-weight-bold">Login</div>
         </div>
 
         <q-space />
@@ -18,8 +18,9 @@
           <PasswordInput />
           <div>
             <q-btn
-                class="full-width btn__primary--login text-white"
+                class="full-width btn__primary btn__primary--login text-white"
                 label="Login"
+                icon="login"
                 type="submit"
                 :loading="loading"
                 :disable="loading"

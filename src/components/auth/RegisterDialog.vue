@@ -1,10 +1,10 @@
 <template>
-  <q-dialog v-model="open">
+  <q-dialog v-model="open" class="dialog-blur">
     <q-card style="min-width: 380px;">
       <q-card-section class="row items-center q-pb-sm">
         <div class="row items-center q-gutter-sm">
           <q-icon name="person" size="22px" />
-          <div class="text-h6">Criar conta</div>
+          <div class="text-h6 text-cinzel  text-weight-bold">Criar conta</div>
         </div>
 
         <q-space />
@@ -19,10 +19,12 @@
             <PasswordInput />
           <div>
             <q-btn
+                icon="person"
                 class="full-width btn__primary"
-                color="primary"
                 label="Registrar"
                 type="submit"
+                :loading="loading"
+                :disable="loading"
             />
           </div>
         </Form>
@@ -32,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import {computed, ref} from 'vue'
 import { Form } from 'vee-validate'
 import { useQuasar } from 'quasar'
 import { useUiStore } from '@/stores/ui.store'
@@ -42,6 +44,7 @@ import NameInput from "@/components/form/NameInput.vue";
 import EmailInput from "@/components/form/EmailInput.vue";
 import PasswordInput from "@/components/form/PasswordInput.vue";
 
+const loading = ref(false)
 const $q = useQuasar()
 const ui = useUiStore()
 
@@ -53,11 +56,9 @@ const open = computed({
   }
 })
 
-const emit = defineEmits<{
-  (e: 'success', payload: any): void
-}>()
-
 async function onSubmit(values: any) {
+  loading.value = true
+
   try {
     await http.post('/register', values)
 
@@ -75,6 +76,8 @@ async function onSubmit(values: any) {
       message: error.response?.data?.message || 'Erro ao realizar cadastro'
     })
 
+  } finally {
+    loading.value = false
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <q-page class="page">
     <div class="text-h4 q-pa-xl text-weight-bold text-title">
-      Marketplace
+      Solicitações de Troca
     </div>
     <div class="spacer" />
   </q-page>

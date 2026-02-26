@@ -1,0 +1,11 @@
+.btn__primary{
+  background: $dark-blue;
+  border-radius: 10px;
+  font-family: "Cinzel", serif;
+  font-weight: 800;
+  color: white;
+
+  &--login{
+    background: $dark-pink;
+  }
+}

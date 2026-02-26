@@ -1,9 +1,8 @@
 <template>
   <div class="profile">
 
-
     <q-avatar
-
+        v-if="auth.isAuthenticated"
         size="80px"
         class="profile__avatar"
     >
@@ -14,21 +13,15 @@
       />
     </q-avatar>
 
-    <div
-
-        class="profile__meta"
-    >
+    <div class="profile__meta">
       <div class="profile__name">{{ auth.user?.name ?? 'Olá, duelista' }}</div>
-      <div class="profile__email">{{ auth.user?.email ?? 'Faça login para continuar' }}</div>
+      <div class="profile__email">{{ auth.user?.email ?? 'Entre ou crie sua conta para continuar.' }}</div>
     </div>
-
   </div>
 </template>
 
 <script setup lang="ts">
 import yugi from "@/assets/images/yugi.jpg";
-import yugi_bg from "@/assets/images/yugioh-bg.png";
-
 import { useAuthStore } from '@/stores/auth'
 const auth = useAuthStore()
 </script>
@@ -40,6 +33,7 @@ const auth = useAuthStore()
   align-items: center;
   text-align: center;
   gap: 12px;
+  margin-bottom: 10px;
 }
 
 .profile__avatar {
@@ -49,7 +43,7 @@ const auth = useAuthStore()
 }
 
 .q-avatar__content{
-  border: 2px solid $primary-color;
+  border: 2px solid $dark-pink;
 }
 
 .profile__avatar--guest {
@@ -65,10 +59,11 @@ const auth = useAuthStore()
 .profile__name {
   font-weight: 700;
   font-family: "Cinzel", serif;
+  font-size: 16px;
 }
 
 .profile__email {
-  font-size: 13px;
+  font-size: 14px;
   opacity: 0.7;
 }
 </style>

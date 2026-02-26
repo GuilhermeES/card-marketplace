@@ -1,39 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import "variables";
+@import "texts";
+@import "buttons";
 
-body{
+body {
   font-family: "inter", serif;
   background: $background-color;
   overflow-x: hidden;
 }
 
-.text-title{
-  color: white;
-  font-family: "Cinzel", serif;
-}
-
-.btn__primary{
-  background: $primary-color !important;
-  border-radius: 20px;
-  &--login{
-    background: $secondary-color;
-    border-radius: 20px;
+.dialog-blur {
+  .q-dialog__backdrop {
+    background: rgba(10, 10, 15, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
-}
-
-.q-card{
-  border-radius: 10px;
-}
-
-.q-field__native {
-  font-weight: 600;
-}
-
-.q-field__label {
-  font-weight: 600;
-}
-
-.q-field__messages{
-  font-weight: 600;
 }

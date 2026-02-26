@@ -21,8 +21,8 @@
     </q-item>
 
    <div v-if="!auth.isAuthenticated">
-     <q-btn icon="login" label="Login" class="menu__item full-width btn__primary--login"  @click="ui.openLogin()"/>
-     <q-btn icon="person" label="Registrar" class="menu__item full-width btn__primary"  @click="ui.openRegister()"/>
+     <q-btn icon="login" label="Login" class="q-mb-md q-mt-md full-width btn__primary btn__primary--login"  @click="ui.openLogin()"/>
+     <q-btn icon="person" label="Registrar" class="full-width btn__primary"  @click="ui.openRegister()"/>
    </div>
 
   </q-list>
@@ -36,29 +36,26 @@ import { useAuthStore } from '@/stores/auth'
 const auth = useAuthStore()
 
 const topItems: SidebarItem[] = [
-  { label: "Home", icon: "home", to: "/" },
+  { label: "Solicitações de Troca", icon: "home", to: "/" },
 ];
 
 const ui = useUiStore()
 </script>
 
-<style>
+<style lang="scss">
 .menu {
   margin-top: 4px;
-  border-top: 1px solid rgba(255, 255, 255, 0.28);
+  border-top: 1px solid rgba(163, 163, 163, 0.1882352941)
 }
 
 .menu__item {
-  border-radius: 14px;
-  padding: 10px 12px;
-  margin: 6px 4px;
-  color: rgba(255, 255, 255, 0.72);
-  transition: 0.18s ease;
-}
+  background-color: #b6105217 !important;
+  border-radius: 10px;
+  border: 1px solid #b6105294 !important;
 
-.menu__item:hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: rgba(255, 255, 255, 0.92);
+  &:first-child{
+    margin-top: 8px;
+  }
 }
 
 .menu__icon {
@@ -67,17 +64,10 @@ const ui = useUiStore()
 
 .menu__label {
   font-size: 14px;
-  letter-spacing: 0.2px;
 }
 
 .is-active {
-  background: #9d085b33;
-  font-weight: 800;
-  border: none;
-}
-
-.is-active .menu__icon {
-  color: $wine;
+  font-weight: 700;
 }
 
 </style>
