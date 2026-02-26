@@ -18,6 +18,13 @@ body {
   }
 }
 
-.q-inner-loading{
-  background: #15171e3d;
+.cards-page {
+  min-height: 100%;
+  color: #fff;
+}
+
+.load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
 }

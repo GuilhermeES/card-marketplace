@@ -14,6 +14,7 @@
       >
         <CardItem
             :card="card"
+            selectable
             :selected="isSelected(card.id)"
             @toggle="toggleSelect"
         />
@@ -38,9 +39,7 @@
         />
       </div>
 
-    <q-inner-loading :showing="loading">
-      <q-spinner size="50px" />
-    </q-inner-loading>
+    <Loader :showing="loading"/>
   </q-page>
 </template>
 
@@ -51,6 +50,7 @@ import {ApiResponse, Card} from "@/types/card";
 import CardItem from "@/components/cards/CardItem.vue";
 import SelectionBar from "@/components/cards/SelectionBar.vue";
 import {useQuasar} from "quasar";
+import Loader from "@/components/layouts/Loader.vue";
 
 const cards = ref<Card[]>([])
 const loading = ref(false)
@@ -146,16 +146,3 @@ onMounted(() => {
   fetchCards(true)
 })
 </script>
-
-<style lang="scss">
-.cards-page {
-  min-height: 100%;
-  color: #fff;
-}
-
-.load-more {
-  display: flex;
-  justify-content: center;
-  margin-top: 24px;
-}
-</style>

@@ -40,6 +40,7 @@ const auth = useAuthStore()
 const topItems: SidebarItem[] = [
   { label: "Solicitações de Troca", icon: "home", to: "/", exact: true },
   { label: "Cartas", icon: "list", to: "/cards" },
+  { label: "Meu Deck", icon: "style", to: "/deck" },
 ];
 
 const ui = useUiStore()

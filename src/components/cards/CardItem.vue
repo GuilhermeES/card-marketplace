@@ -20,8 +20,8 @@
     </q-card-section>
 
     <q-btn
+        v-if="selectable"
         icon="add"
-
         label="Adicionar ao Deck"
         class="btn-add q-ma-md btn__primary"
         @click.stop="$emit('toggle', card.id)"
@@ -34,14 +34,25 @@
 <script setup lang="ts">
 import type { Card } from '@/types/card'
 
-defineProps<{
-  card: Card
-  selected: boolean,
-}>()
+const props = withDefaults(
+    defineProps<{
+      card: Card
+      selected?: boolean
+      selectable?: boolean
+    }>(),
+    {
+      selected: false,
+      selectable: false
+    }
+)
 
-defineEmits<{
+const emit = defineEmits<{
   (e: 'toggle', id: string): void
 }>()
+
+function handleClick() {
+  emit('toggle', props.card.id)
+}
 </script>
 
 <style lang="scss" scoped>
