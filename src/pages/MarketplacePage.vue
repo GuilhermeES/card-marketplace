@@ -1,5 +1,5 @@
 <template>
-  <q-page class="page">
+  <q-page class="page" padding>
     <div class="text-h4 q-pa-xl text-weight-bold text-title">
       Solicitações de Troca
     </div>

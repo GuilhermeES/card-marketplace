@@ -6,7 +6,9 @@
         clickable
         v-ripple
         :to="item.to"
+        :exact="item.exact"
         active-class="is-active"
+        exact-active-class="is-active"
         class="menu__item"
     >
       <q-item-section avatar>
@@ -21,7 +23,7 @@
     </q-item>
 
    <div v-if="!auth.isAuthenticated">
-     <q-btn icon="login" label="Login" class="q-mb-md q-mt-md full-width btn__primary btn__primary--login"  @click="ui.openLogin()"/>
+     <q-btn icon="login" label="Login" class="q-mb-md q-mt-md full-width btn__primary btn__primary--pink"  @click="ui.openLogin()"/>
      <q-btn icon="person" label="Registrar" class="full-width btn__primary"  @click="ui.openRegister()"/>
    </div>
 
@@ -36,7 +38,8 @@ import { useAuthStore } from '@/stores/auth'
 const auth = useAuthStore()
 
 const topItems: SidebarItem[] = [
-  { label: "Solicitações de Troca", icon: "home", to: "/" },
+  { label: "Solicitações de Troca", icon: "home", to: "/", exact: true },
+  { label: "Cartas", icon: "list", to: "/cards" },
 ];
 
 const ui = useUiStore()
@@ -48,10 +51,15 @@ const ui = useUiStore()
   border-top: 1px solid rgba(163, 163, 163, 0.1882352941)
 }
 
+.is-active {
+  font-weight: 700;
+  background-color: #b6105217;
+  border: 1px solid #b6105294;
+}
+
 .menu__item {
-  background-color: #b6105217 !important;
   border-radius: 10px;
-  border: 1px solid #b6105294 !important;
+  margin-bottom: 8px;
 
   &:first-child{
     margin-top: 8px;
@@ -64,10 +72,6 @@ const ui = useUiStore()
 
 .menu__label {
   font-size: 14px;
-}
-
-.is-active {
-  font-weight: 700;
 }
 
 </style>

@@ -18,7 +18,7 @@
           <PasswordInput />
           <div>
             <q-btn
-                class="full-width btn__primary btn__primary--login text-white"
+                class="full-width btn__primary btn__primary--pink text-white"
                 label="Login"
                 icon="login"
                 type="submit"
