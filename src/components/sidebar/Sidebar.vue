@@ -1,13 +1,13 @@
 <template>
   <div class="sidebar">
 
-    <SidebarHeader/>
+    <SidebarHeader />
 
     <SidebarNav/>
 
     <div class="spacer" />
 
-    <SidebarFooter/>
+    <SidebarFooter v-if="auth.isAuthenticated"/>
   </div>
 </template>
 
@@ -15,6 +15,9 @@
 import SidebarFooter from "@/components/sidebar/SidebarFooter.vue";
 import SidebarNav from "@/components/sidebar/SidebarNav.vue";
 import SidebarHeader from "@/components/sidebar/SidebarHeader.vue";
+
+import { useAuthStore } from '@/stores/auth'
+const auth = useAuthStore()
 </script>
 
 <style lang="scss">

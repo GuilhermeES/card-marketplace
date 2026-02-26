@@ -23,6 +23,13 @@
         @success="handleRegister"
     />
 
+    <LoginDialog
+        :model-value="ui.loginOpen"
+        @update:model-value="(v: boolean) => !v && ui.closeAuthModal()"
+        @go-login="ui.switchToRegister()"
+        @success="handleLogin"
+    />
+
   </q-layout>
 </template>
 
@@ -32,6 +39,7 @@ import Sidebar from '@/components/sidebar/Sidebar.vue'
 import AppHeaderMobile from '@/components/layouts/AppHeaderMobile.vue'
 import RegisterDialog from "@/components/auth/RegisterDialog.vue";
 import { useUiStore } from '@/stores/ui.store'
+import LoginDialog from "@/components/auth/LoginDialog.vue";
 
 const ui = useUiStore()
 const leftDrawerOpen = ref(false)
@@ -41,6 +49,10 @@ function toggleDrawer() {
 }
 
 function handleRegister(payload: { name: string; email: string; password: string }) {
+  ui.closeAuthModal()
+}
+
+function handleLogin(payload: { email: string; password: string }) {
   ui.closeAuthModal()
 }
 </script>

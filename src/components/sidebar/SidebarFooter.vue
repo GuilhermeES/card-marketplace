@@ -2,7 +2,7 @@
   <q-separator dark class="bottom__sep" />
 
   <q-list padding>
-    <q-item clickable v-ripple class="menu__item menu__item--danger" @click="">
+    <q-item clickable v-ripple class="menu__item menu__item--danger" @click="logout()">
       <q-item-section avatar>
         <q-icon name="logout" class="menu__icon menu__icon--danger" />
       </q-item-section>
@@ -14,10 +14,20 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
+
+const auth = useAuthStore()
+const router = useRouter()
+
+function logout() {
+  auth.logout()
+  router.push('/')
+}
+
 </script>
 
 <style>
-
 .menu__item--danger:hover {
   background: rgba(255, 60, 60, 0.08);
 }

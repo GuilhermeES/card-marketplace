@@ -1,6 +1,6 @@
 <template>
   <q-list class="menu" padding>
-    <q-item
+    <q-item v-if="auth.isAuthenticated"
         v-for="item in topItems"
         :key="item.label"
         clickable
@@ -20,7 +20,10 @@
       </q-item-section>
     </q-item>
 
-    <q-btn icon="person" label="Registrar" class="menu__item full-width btn__primary"  @click="ui.openRegister()"/>
+   <div v-if="!auth.isAuthenticated">
+     <q-btn icon="login" label="Login" class="menu__item full-width btn__primary--login"  @click="ui.openLogin()"/>
+     <q-btn icon="person" label="Registrar" class="menu__item full-width btn__primary"  @click="ui.openRegister()"/>
+   </div>
 
   </q-list>
 </template>
@@ -28,6 +31,9 @@
 <script setup lang="ts">
 import { useUiStore } from '@/stores/ui.store'
 import type { SidebarItem } from "@/components/sidebar/sidebar.ts";
+
+import { useAuthStore } from '@/stores/auth'
+const auth = useAuthStore()
 
 const topItems: SidebarItem[] = [
   { label: "Home", icon: "home", to: "/" },
@@ -39,6 +45,7 @@ const ui = useUiStore()
 <style>
 .menu {
   margin-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
 }
 
 .menu__item {
@@ -64,9 +71,9 @@ const ui = useUiStore()
 }
 
 .is-active {
-  border: 1px solid #ffffff17;
-  background: rgba(255, 255, 255, 0.06);
-  color: rgba(255, 255, 255, 0.95);
+  background: #9d085b33;
+  font-weight: 800;
+  border: none;
 }
 
 .is-active .menu__icon {
