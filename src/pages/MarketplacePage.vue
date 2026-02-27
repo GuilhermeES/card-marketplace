@@ -6,7 +6,7 @@
       </div>
     </div>
 
-    <div class="q-mt-md">
+    <div class="trade-list-wrapper q-mt-md">
       <TradeCard
           v-for="trade in trades"
           :key="trade.id"
@@ -79,3 +79,4 @@ onMounted(() => {
   fetchTrades(true)
 })
 </script>
+

@@ -1,7 +1,6 @@
 <template>
   <q-card
       class="card-item"
-      :class="{ 'card-item--selected': selected }"
       flat
       bordered
       clickable
@@ -21,9 +20,11 @@
 
     <q-btn
         v-if="selectable"
-        icon="add"
-        label="Adicionar ao Deck"
+        :icon="selected ? 'check' : 'add'"
+        :label="selected ? 'Adicionado' : 'Adicionar ao Deck'"
         class="btn-add q-ma-md btn__primary"
+        :class="{ 'btn__primary--pink': selected }"
+        unelevated
         @click.stop="$emit('toggle', card.id)"
     />
 
@@ -60,7 +61,7 @@ function handleClick() {
   position: relative;
   overflow: hidden;
   border-radius: 14px;
-  background: rgba(255,255,255,.03);
+  background: $background-color;
   border-color: rgba(255,255,255,.08);
   display: flex;
   flex-direction: column;
@@ -71,11 +72,6 @@ function handleClick() {
     cursor: pointer;
     transform: scale(1.02);
   }
-}
-
-.card-item--selected {
-  border-color: rgba(34,197,94,0.9);
-  box-shadow: 0 0 0 2px rgba(34,197,94,0.35);
 }
 
 .card-body {
@@ -102,7 +98,6 @@ function handleClick() {
 .selected-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(34,197,94,0.18);
   pointer-events: none;
 }
 </style>

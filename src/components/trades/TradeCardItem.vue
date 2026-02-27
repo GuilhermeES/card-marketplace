@@ -26,7 +26,6 @@ defineEmits<{
   user-select: none;
   padding: 10px;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
 

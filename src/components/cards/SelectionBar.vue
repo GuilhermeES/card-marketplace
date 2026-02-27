@@ -13,7 +13,7 @@
               color="primary"
               icon="style"
               class="btn__primary--pink"
-              label="Adicionar ao deck"
+              label="Confirmar"
               :loading="loading"
               :disable="loading"
               @click="$emit('confirm')"

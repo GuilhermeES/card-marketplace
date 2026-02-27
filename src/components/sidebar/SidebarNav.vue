@@ -54,8 +54,8 @@ const ui = useUiStore()
 
 .is-active {
   font-weight: 700;
-  background-color: #b6105217;
-  border: 1px solid #b6105294;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: rgb(182 16 82 / 19%);
 }
 
 .menu__item {

@@ -23,8 +23,7 @@
       <div class="col-12 col-md-5">
         <div class="trade__block">
           <div class="trade__blockHeader">
-            <div class="trade__blockTitle">Está oferecendo:</div>
-            <q-badge rounded class="trade__count" :label="offering.length" />
+            <div class="trade__blockTitle">Está enviando:</div>
           </div>
 
           <div v-if="offering.length" class="trade__grid">
@@ -44,15 +43,14 @@
 
       <div class="col-12 col-md-2 trade__swapCol">
         <div class="trade__swap">
-          <q-icon name="swap_horiz" size="26px" class="trade__swapIcon" />
+          <q-icon name="sync" size="30px" class="trade__swapIcon" />
         </div>
       </div>
 
       <div class="col-12 col-md-5">
         <div class="trade__block">
           <div class="trade__blockHeader">
-            <div class="trade__blockTitle">Em troca de:</div>
-            <q-badge rounded class="trade__count" :label="receiving.length" />
+            <div class="trade__blockTitle">Recebe em troca:</div>
           </div>
 
           <div v-if="receiving.length" class="trade__grid">
@@ -100,9 +98,7 @@ defineEmits<{
 }>()
 
 const avatars = [seto, joey, yugi]
-
 const randomIndex = Math.floor(Math.random() * avatars.length)
-
 const avatarImage = avatars[randomIndex]
 
 const offering = computed(() =>
@@ -121,13 +117,6 @@ function openCard(card: Card) {
   cardDialog.value = true
 }
 
-function initials(name?: string) {
-  const n = (name || '').trim()
-  if (!n) return '?'
-  const parts = n.split(/\s+/).slice(0, 2)
-  return parts.map(p => p[0]?.toUpperCase()).join('')
-}
-
 function formatDate(iso: string) {
   const d = new Date(iso)
   if (Number.isNaN(d.getTime())) return iso
@@ -144,7 +133,7 @@ function formatDate(iso: string) {
 <style scoped lang="scss">
 .trade {
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.02);
+  background: #0b0c10;
 }
 
 .trade__header {
@@ -187,7 +176,6 @@ function formatDate(iso: string) {
   border-radius: 16px;
   padding: 12px;
   background: rgba(255, 255, 255, 0.03);
-  height: 100%;
 }
 
 .trade__blockHeader {
@@ -199,7 +187,8 @@ function formatDate(iso: string) {
 
 .trade__blockTitle {
   color: #fff;
-  font-weight: 750;
+  font-weight: 700;
+  font-family: "Cinzel", serif;
   letter-spacing: 0.2px;
   opacity: 0.95;
 }
@@ -248,5 +237,6 @@ function formatDate(iso: string) {
 .trade__btn {
   border-radius: 14px;
 }
+
 
 </style>

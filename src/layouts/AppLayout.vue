@@ -1,5 +1,9 @@
 <template>
-  <q-layout view="hHh Lpr fFf" class="app-shell">
+  <q-layout
+      view="hHh Lpr fFf"
+      class="app-shell"
+
+  >
     <AppHeaderMobile @toggle="toggleDrawer" />
 
     <q-drawer
@@ -40,6 +44,7 @@ import AppHeaderMobile from '@/components/layouts/AppHeaderMobile.vue'
 import RegisterDialog from "@/components/auth/RegisterDialog.vue";
 import { useUiStore } from '@/stores/ui.store'
 import LoginDialog from "@/components/auth/LoginDialog.vue";
+import bg from "@/assets/images/bg.png";
 
 const ui = useUiStore()
 const leftDrawerOpen = ref(false)
@@ -56,3 +61,23 @@ function handleLogin(payload: { email: string; password: string }) {
   ui.closeAuthModal()
 }
 </script>
+
+<style>
+.app-shell {
+  position: relative;
+  background-image: url('@/assets/images/bg.png');
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(11, 12, 16, 0.85) 0%,
+        rgba(15, 17, 25, 0.9) 50%,
+        rgba(8, 8, 12, 0.95) 100%
+    );
+
+  }
+}
+</style>

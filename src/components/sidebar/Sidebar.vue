@@ -35,8 +35,7 @@ const auth = useAuthStore()
   flex-direction: column;
   padding: 18px 14px 14px;
   color: rgba(255, 255, 255, 0.92);
-  background-color: $background-color-sidebar;
-  border-right: 1px solid #a3a3a330;
+  background: radial-gradient(circle at top left, rgb(157 57 109 / 4%), transparent 50%), linear-gradient(180deg, #0b0c10 0%, #12121a 100%);
 }
 
 .spacer { flex: 1; }
@@ -44,7 +43,7 @@ const auth = useAuthStore()
 .avatar-yugi-bg{
   position: relative;
   bottom: -13px;
-  opacity: 0.8;
+  opacity: 0.6;
   left: -13px;
 }
 </style>
