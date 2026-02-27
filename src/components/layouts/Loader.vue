@@ -19,5 +19,6 @@ withDefaults(
 <style scoped lang="scss">
 .q-inner-loading {
   background: #15171e3d;
+  color: white;
 }
 </style>
