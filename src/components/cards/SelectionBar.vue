@@ -1,6 +1,10 @@
 <template>
   <q-slide-transition>
-    <div v-if="count > 0" class="selection-bar">
+    <div
+        v-if="count > 0"
+        class="selection-bar"
+        :class="{ 'selection-bar--fixed': fixed }"
+    >
       <div class="selection-bar__content">
 
         <div class="selection-bar__info">
@@ -26,18 +30,24 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  count: number,
-  loading?: boolean
-}>()
+withDefaults(
+    defineProps<{
+      count: number
+      loading?: boolean
+      fixed?: boolean
+    }>(),
+    {
+      loading: false,
+      fixed: false
+    }
+)
 
 defineEmits<{
-  (e: 'clear'): void
   (e: 'confirm'): void
 }>()
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .selection-bar {
   position: sticky;
   bottom: 0;
@@ -61,6 +71,7 @@ defineEmits<{
 
 .selection-bar__info {
   font-weight: 600;
+  color: white;
 }
 
 .selection-bar__actions {

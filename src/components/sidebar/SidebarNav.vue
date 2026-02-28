@@ -32,7 +32,7 @@
 
 <script setup lang="ts">
 import { useUiStore } from '@/stores/ui.store'
-import type { SidebarItem } from "@/components/sidebar/sidebar.ts";
+import type { SidebarItem } from "@/types/sidebar.ts";
 
 import { useAuthStore } from '@/stores/auth'
 const auth = useAuthStore()

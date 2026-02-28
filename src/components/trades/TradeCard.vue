@@ -1,5 +1,5 @@
 <template>
-  <q-card class="trade" flat bordered>
+  <q-card class="trade"  bordered>
     <q-item class="trade__header">
       <q-item-section avatar>
         <q-avatar size="44px" class="trade__avatar">
@@ -134,6 +134,7 @@ function formatDate(iso: string) {
 .trade {
   border-radius: 18px;
   background: #0b0c10;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
 }
 
 .trade__header {
@@ -205,7 +206,8 @@ function formatDate(iso: string) {
 
 .trade__empty {
   opacity: 0.6;
-  font-size: 12px;
+  font-size: 13px;
+  color: white;
   padding: 10px 2px;
 }
 

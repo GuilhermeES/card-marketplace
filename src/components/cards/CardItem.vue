@@ -21,7 +21,7 @@
     <q-btn
         v-if="selectable"
         :icon="selected ? 'check' : 'add'"
-        :label="selected ? 'Adicionado' : 'Adicionar ao Deck'"
+        :label="selected ? (addedLabel || 'Adicionado') : (addLabel || 'Adicionar ao Deck')"
         class="btn-add q-ma-md btn__primary"
         :class="{ 'btn__primary--pink': selected }"
         unelevated
@@ -40,6 +40,8 @@ const props = withDefaults(
       card: Card
       selected?: boolean
       selectable?: boolean
+      addLabel?: string
+      addedLabel?: string
     }>(),
     {
       selected: false,
