@@ -15,16 +15,15 @@
         <CardItem
             :card="card"
             selectable
-            :selected="isSelected(card.id)"
-            @toggle="toggleSelect"
+            :selected="selection.has(card.id)"
+            @toggle="selection.toggle"
         />
       </div>
     </div>
 
       <SelectionBar
-          :count="selectedCount"
+          :count="selection.count.value"
           :loading="loadingAction"
-          @clear="clearSelection"
           @confirm="addSelectedToDeck"
       />
 
@@ -44,105 +43,40 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue'
-import { http } from '@/services/api'
-import {ApiResponse, Card} from "@/types/card";
+import { onMounted, ref } from 'vue'
+import {Card} from "@/types/card";
 import CardItem from "@/components/cards/CardItem.vue";
 import SelectionBar from "@/components/cards/SelectionBar.vue";
 import {useQuasar} from "quasar";
 import Loader from "@/components/layouts/Loader.vue";
+import {usePaginatedList} from "@/composables/usePaginatedList";
+import {addCardsToDeck, getCards} from "@/services/cards.service";
+import {useSelectionSet} from "@/composables/useSelectionSet";
 
-const cards = ref<Card[]>([])
-const loading = ref(false)
-const loadingAction = ref(false)
-const page = ref(1)
-const rpp = ref(12)
-const more = ref(false)
-const selectedIds = ref<Set<string>>(new Set())
-const selectedCount = computed(() => selectedIds.value.size)
 const $q = useQuasar()
-
-function isSelected(cardId: string) {
-  return selectedIds.value.has(cardId)
-}
-
-function toggleSelect(cardId: string) {
-  const next = new Set(selectedIds.value)
-
-  if (next.has(cardId)) {
-    next.delete(cardId)
-  } else {
-    next.add(cardId)
-  }
-
-  selectedIds.value = next
-}
-
-function clearSelection() {
-  selectedIds.value = new Set()
-}
+const loadingAction = ref(false)
+const selection = useSelectionSet<string>()
 
 async function addSelectedToDeck() {
-  if (selectedIds.value.size === 0) return
-
-  const payload = {
-    cardIds: Array.from(selectedIds.value)
-  }
+  if (selection.count.value === 0) return
 
   try {
     loadingAction.value = true
+    await addCardsToDeck(selection.toArray())
 
-    await http.post('/me/cards', payload)
-
-    $q.notify({
-      type: 'positive',
-      message: 'Cartas adicionadas ao deck com sucesso!'
-    })
-
-    selectedIds.value = new Set()
-
+    $q.notify({ type: 'positive', message: 'Cartas adicionadas ao deck com sucesso!' })
+    selection.clear()
   } catch (error: any) {
-    $q.notify({
-      type: 'negative',
-      message: error?.response?.data?.message || 'Erro ao adicionar cartas.'
-    })
+    $q.notify({ type: 'negative', message: error?.response?.data?.message || 'Erro ao adicionar cartas.'})
   } finally {
     loadingAction.value = false
   }
 }
 
-async function fetchCards(reset = false) {
-  if (loading.value) return
-  loading.value = true
+const { items: cards, more, loading, fetch, loadMore } = usePaginatedList<Card>(getCards, { rpp: 12 })
 
-  try {
-    if (reset) {
-      page.value = 1
-      cards.value = []
-    }
-
-    const { data } = await http.get<ApiResponse>('/cards', {
-      params: {
-        rpp: rpp.value,
-        page: page.value
-      }
-    })
-
-    cards.value = reset ? data.list : [...cards.value, ...data.list]
-
-    more.value = data.more
-  } finally {
-    loading.value = false
-  }
-}
-
-function loadMore() {
-  if (!more.value) return
-  page.value++
-  fetchCards()
-}
 
 onMounted(() => {
-  fetchCards(true)
+  fetch(true)
 })
 </script>

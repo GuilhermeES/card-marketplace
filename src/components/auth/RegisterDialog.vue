@@ -38,11 +38,12 @@ import {computed, ref} from 'vue'
 import { Form } from 'vee-validate'
 import { useQuasar } from 'quasar'
 import { useUiStore } from '@/stores/ui.store'
-import { http } from '@/services/api'
 
 import NameInput from "@/components/form/NameInput.vue";
 import EmailInput from "@/components/form/EmailInput.vue";
 import PasswordInput from "@/components/form/PasswordInput.vue";
+import {RegisterPayload} from "@/types/auth";
+import {register} from "@/services/auth.service";
 
 const loading = ref(false)
 const $q = useQuasar()
@@ -56,26 +57,18 @@ const open = computed({
   }
 })
 
-async function onSubmit(values: any) {
+async function onSubmit(values: RegisterPayload) {
   loading.value = true
-
   try {
-    await http.post('/register', values)
+    await register(values)
 
-    $q.notify({
-      type: 'positive',
-      message: 'Cadastro realizado com sucesso!'
-    })
-
+    $q.notify({ type: 'positive', message: 'Cadastro realizado com sucesso!' })
     ui.closeAuthModal()
-
-  } catch (error: any) {
-
+  } catch (e: any) {
     $q.notify({
       type: 'negative',
-      message: error.response?.data?.message || 'Erro ao realizar cadastro'
+      message: e.response?.data?.message || 'Erro ao realizar cadastro'
     })
-
   } finally {
     loading.value = false
   }

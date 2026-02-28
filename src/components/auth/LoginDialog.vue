@@ -37,11 +37,12 @@ import { computed, ref } from 'vue'
 import { Form } from 'vee-validate'
 import { useQuasar } from 'quasar'
 import { useUiStore } from '@/stores/ui.store'
-import { http } from '@/services/api'
 
 import EmailInput from "@/components/form/EmailInput.vue";
 import PasswordInput from "@/components/form/PasswordInput.vue";
 import {useAuthStore} from "@/stores/auth";
+import {LoginPayload} from "@/types/auth";
+import {login} from "@/services/auth.service";
 
 const loading = ref(false)
 const auth = useAuthStore()
@@ -56,30 +57,19 @@ const open = computed({
   }
 })
 
-async function onSubmit(values: { email: string; password: string }) {
+
+async function onSubmit(values: LoginPayload) {
   loading.value = true
-
   try {
-    const { data } = await http.post('/login', values)
+    const data = await login(values)
+    auth.setAuth({ token: data.token, user: data.user })
 
-    auth.setAuth({
-      token: data.token,
-      user: data.user
-    })
-
-    $q.notify({
-      type: 'positive',
-      message: 'Login realizado com sucesso!'
-    })
-
+    $q.notify({ type: 'positive', message: 'Login realizado com sucesso!' })
     ui.closeAuthModal()
-
-  } catch (error: any) {
+  } catch (e: any) {
     $q.notify({
       type: 'negative',
-      message:
-          error.response?.data?.message ||
-          'E-mail ou senha inválidos'
+      message: e.response?.data?.message || 'E-mail ou senha inválidos'
     })
   } finally {
     loading.value = false

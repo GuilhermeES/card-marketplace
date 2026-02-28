@@ -8,7 +8,7 @@
 
     <div class="trade-list-wrapper q-mt-md">
       <TradeCard
-          v-for="trade in trades"
+          v-for="trade in items"
           :key="trade.id"
           :trade="trade"
           class="q-mb-md"
@@ -32,51 +32,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import TradeCard from '@/components/trades/TradeCard.vue'
 import Loader from '@/components/layouts/Loader.vue'
-import type { Trade, TradesResponse } from '@/types/card'
-import { http } from '@/services/api'
+import type { Trade } from '@/types/card'
+import {usePaginatedList} from "@/composables/usePaginatedList";
+import { getTrades } from '@/services/trades.service'
 
-const trades = ref<Trade[]>([])
-const loading = ref(false)
-
-const page = ref(1)
-const rpp = ref(10)
-const more = ref(false)
-
-async function fetchTrades(reset = false) {
-  if (loading.value) return
-  loading.value = true
-
-  try {
-    if (reset) {
-      page.value = 1
-      trades.value = []
-    }
-
-    const { data } = await http.get<TradesResponse>('/trades', {
-      params: {
-        rpp: rpp.value,
-        page: page.value
-      }
-    })
-
-    trades.value = reset ? data.list : [...trades.value, ...data.list]
-    more.value = data.more
-  } finally {
-    loading.value = false
-  }
-}
-
-function loadMore() {
-  if (!more.value) return
-  page.value++
-  fetchTrades()
-}
+const { items, more, loading, fetch, loadMore } = usePaginatedList<Trade>(getTrades, { rpp: 6 })
 
 onMounted(() => {
-  fetchTrades(true)
+  fetch(true)
 })
 </script>
 

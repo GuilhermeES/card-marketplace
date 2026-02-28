@@ -54,23 +54,19 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { useQuasar } from 'quasar'
-import { http } from '@/services/api'
 import SelectionBar from '@/components/cards/SelectionBar.vue'
-import type {ApiResponse, Card, TradeCardType} from '@/types/card'
+import type {Card, TradeCardType} from '@/types/card'
 import TradePanel from "@/components/trades/TradePanel.vue";
 import {useSelectionIds} from "@/composables/useSelectionIds";
+import {createTrade} from "@/services/trades.service";
+import {getCards, getMyCards} from "@/services/cards.service";
+import {usePaginatedList} from "@/composables/usePaginatedList";
 
 const $q = useQuasar()
 
 const myCards = ref<Card[]>([])
-const allCards = ref<Card[]>([])
 const loadingMine = ref(false)
-const loadingAll = ref(false)
 const submitting = ref(false)
-
-const pageAll = ref(1)
-const rppAll = ref(6)
-const moreAll = ref(true)
 
 const offering = useSelectionIds()
 const receiving = useSelectionIds()
@@ -78,42 +74,17 @@ const receiving = useSelectionIds()
 const mineColClass = 'col-6 col-sm-4 col-md-6 col-lg-6 col-xl-4'
 const allColClass = 'col-6 col-sm-4 col-md-6 col-lg-6 col-xl-4'
 
+const { items: allCards, more: moreAll, loading: loadingAll, fetch: fetchAllCards, loadMore: loadMoreAll } =
+    usePaginatedList<Card>(getCards, { rpp: 6 })
+
 async function fetchMyCards() {
   if (loadingMine.value) return
   loadingMine.value = true
   try {
-    const { data } = await http.get<Card[]>('/me/cards')
-    myCards.value = data
+    myCards.value = await getMyCards()
   } finally {
     loadingMine.value = false
   }
-}
-
-async function fetchAllCards(reset = false) {
-  if (loadingAll.value) return
-  loadingAll.value = true
-  try {
-    if (reset) {
-      pageAll.value = 1
-      allCards.value = []
-      moreAll.value = true
-    }
-
-    const { data } = await http.get<ApiResponse>('/cards', {
-      params: { rpp: rppAll.value, page: pageAll.value }
-    })
-
-    allCards.value = reset ? data.list : [...allCards.value, ...data.list]
-    moreAll.value = data.more
-  } finally {
-    loadingAll.value = false
-  }
-}
-
-function loadMoreAll() {
-  if (!moreAll.value || loadingAll.value) return
-  pageAll.value++
-  fetchAllCards(false)
 }
 
 const tradePayload = computed(() => ({
@@ -129,9 +100,9 @@ async function onConfirm() {
     return
   }
 
+  submitting.value = true
   try {
-    submitting.value = true
-    await http.post('/trades', tradePayload.value)
+    await createTrade(tradePayload.value)
     $q.notify({ type: 'positive', message: 'Solicitação de troca enviada!' })
     offering.clear()
     receiving.clear()
@@ -144,6 +115,6 @@ async function onConfirm() {
 
 onMounted(() => {
   fetchMyCards()
-  fetchAllCards()
+  fetchAllCards(true)
 })
 </script>
