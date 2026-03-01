@@ -31,6 +31,7 @@ const show = ref(false)
     >
       <template #append>
         <q-icon
+            color="white"
             :name="show ? 'visibility_off' : 'visibility'"
             class="cursor-pointer"
             @click="show = !show"

@@ -10,6 +10,28 @@ body {
   overflow-x: hidden;
 }
 
+.q-card{
+  background: #0f0f14;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.q-field--outlined .q-field__control:before{
+  border: 1px solid white;
+}
+
+.q-field__control::placeholder, .q-field__native.q-placeholder, .q-field__label{
+  color: white;
+}
+
+.q-field__control{
+  color: $dark-pink;
+}
+
+.q-field--outlined .q-field__control:hover:before{
+  border-color: $dark-pink;
+}
+
 .dialog-blur {
   .q-dialog__backdrop {
     background: rgba(10, 10, 15, 0.55);
