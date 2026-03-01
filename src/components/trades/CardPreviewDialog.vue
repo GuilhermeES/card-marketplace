@@ -97,7 +97,7 @@ function close() {
 
 .cardModal__img {
   width: 100%;
-  height: auto;
+  height: 500px;
   display: block;
   object-fit: contain; /* não corta */
 }
@@ -106,6 +106,7 @@ function close() {
   margin-top: 14px;
   color: rgba(255, 255, 255, 0.82);
   line-height: 1.5;
+  font-size: 12px;
   white-space: pre-wrap;
 }
 </style>

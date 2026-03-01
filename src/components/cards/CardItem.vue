@@ -82,7 +82,7 @@ function handleClick() {
 }
 
 .card-desc {
-  font-size: 12px;
+  font-size: 11px;
   opacity: .7;
 }
 
