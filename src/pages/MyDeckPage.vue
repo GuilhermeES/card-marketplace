@@ -1,13 +1,15 @@
 <template>
   <q-page class="trade-page" padding>
-    <div class="trade-page__header">
-      <div class="text-h4 q-pa-xl text-weight-bold text-title">
-          Meu Deck
-        <p class="text-subtitle1">
-          Selecione pelo menos uma carta em <strong>Minha coleção</strong> e outra em <strong>Cartas que quero receber</strong> <br> para criar sua solicitação de troca.
-        </p>
-      </div>
-    </div>
+    <PageHeader title="Criar Troca">
+      <template #subtitle>
+        Selecione pelo menos uma carta em
+        <strong>Minha coleção</strong>
+        e outra em
+        <strong>Cartas que quero receber</strong>
+        <br />
+        para criar sua solicitação de troca.
+      </template>
+    </PageHeader>
 
     <div class="row q-pt-none q-mt-none q-col-gutter-lg trade-page__grid justify-between">
       <div class="col-12 col-md-6 q-pt-none">
@@ -61,6 +63,7 @@ import {useSelectionIds} from "@/composables/useSelectionIds";
 import {createTrade} from "@/services/trades.service";
 import {getCards, getMyCards} from "@/services/cards.service";
 import {usePaginatedList} from "@/composables/usePaginatedList";
+import PageHeader from "@/components/layouts/PageHeader.vue";
 
 const $q = useQuasar()
 

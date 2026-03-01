@@ -1,11 +1,9 @@
 <template>
   <q-page class="cards-page" padding>
-      <div class="text-h4 q-pa-xl text-weight-bold text-title">
-        Cartas
-        <p class="text-subtitle1">
-          Clique sobre as cartas que desejar adicionar ao deck
-        </p>
-      </div>
+      <PageHeader
+          title="Cartas"
+          subtitle=" Clique sobre as cartas que desejar adicionar ao deck"
+      />
     <div class="row q-col-gutter-md">
       <div
           v-for="card in cards"
@@ -52,6 +50,7 @@ import Loader from "@/components/layouts/Loader.vue";
 import {usePaginatedList} from "@/composables/usePaginatedList";
 import {addCardsToDeck, getCards} from "@/services/cards.service";
 import {useSelectionSet} from "@/composables/useSelectionSet";
+import PageHeader from "@/components/layouts/PageHeader.vue";
 
 const $q = useQuasar()
 const loadingAction = ref(false)

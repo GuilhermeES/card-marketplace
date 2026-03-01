@@ -1,10 +1,8 @@
 <template>
   <q-page class="marketplace-page" padding>
-    <div class="page__header">
-      <div class="text-h4 q-pa-xl text-weight-bold text-title">
-        Solicitações de Troca
-      </div>
-    </div>
+      <PageHeader
+          title="Solicitações de Troca"
+      />
 
     <div class="trade-list-wrapper q-mt-md">
       <TradeCard
@@ -38,6 +36,7 @@ import Loader from '@/components/layouts/Loader.vue'
 import type { Trade } from '@/types/card'
 import {usePaginatedList} from "@/composables/usePaginatedList";
 import { getTrades } from '@/services/trades.service'
+import PageHeader from "@/components/layouts/PageHeader.vue";
 
 const { items, more, loading, fetch, loadMore } = usePaginatedList<Trade>(getTrades, { rpp: 6 })
 
