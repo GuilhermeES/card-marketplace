@@ -15,6 +15,20 @@
           {{ formatDate(trade.createdAt) }}
         </q-item-label>
       </q-item-section>
+      <q-item-section v-if="showRemove" side>
+        <q-btn
+            flat
+            dense
+            label="Excluir solicitação"
+            icon="delete"
+            :loading="removeLoading"
+            :disable="removeLoading"
+            color="negative"
+            @click.stop="onRemove"
+        >
+          <q-tooltip>Remover solicitação</q-tooltip>
+        </q-btn>
+      </q-item-section>
     </q-item>
 
     <q-separator class="trade__sep" />
@@ -90,12 +104,19 @@ import yugi from "@/assets/images/yugi.jpg"
 
 const props = defineProps<{
   trade: Trade
+  showRemove?: boolean
+  removeLoading?: boolean
 }>()
 
-defineEmits<{
+const emit = defineEmits<{
   (e: 'open', trade: Trade): void
   (e: 'propose', trade: Trade): void
+  (e: 'remove', trade: Trade): void
 }>()
+
+function onRemove() {
+  emit('remove', props.trade)
+}
 
 const avatars = [seto, joey, yugi]
 const randomIndex = Math.floor(Math.random() * avatars.length)

@@ -10,3 +10,8 @@ export async function createTrade(payload: any) {
     const { data } = await http.post('/trades', payload)
     return data
 }
+
+export async function removeTrade(id: string) {
+    const { data } = await http.delete(`/trades/${id}`)
+    return data
+}
