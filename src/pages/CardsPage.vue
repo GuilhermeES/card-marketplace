@@ -42,7 +42,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import {Card} from "@/types/card";
+import type {Card} from "@/types/card";
 import CardItem from "@/components/cards/CardItem.vue";
 import SelectionBar from "@/components/cards/SelectionBar.vue";
 import {useQuasar} from "quasar";

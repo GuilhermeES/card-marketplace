@@ -36,13 +36,14 @@
 <script setup lang="ts">
 import {computed, ref} from 'vue'
 import { Form } from 'vee-validate'
+import type { SubmissionHandler } from 'vee-validate'
 import { useQuasar } from 'quasar'
 import { useUiStore } from '@/stores/ui.store'
 
 import NameInput from "@/components/form/NameInput.vue";
 import EmailInput from "@/components/form/EmailInput.vue";
 import PasswordInput from "@/components/form/PasswordInput.vue";
-import {RegisterPayload} from "@/types/auth";
+import type {RegisterPayload} from "@/types/auth";
 import {register} from "@/services/auth.service";
 
 const loading = ref(false)
@@ -57,10 +58,11 @@ const open = computed({
   }
 })
 
-async function onSubmit(values: RegisterPayload) {
+const onSubmit: SubmissionHandler = async (values) => {
+  const payload = values as RegisterPayload
   loading.value = true
   try {
-    await register(values)
+    await register(payload)
 
     $q.notify({ type: 'positive', message: 'Cadastro realizado com sucesso!' })
     ui.closeAuthModal()

@@ -35,13 +35,14 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { Form } from 'vee-validate'
+import type { SubmissionHandler } from 'vee-validate'
 import { useQuasar } from 'quasar'
 import { useUiStore } from '@/stores/ui.store'
 
 import EmailInput from "@/components/form/EmailInput.vue";
 import PasswordInput from "@/components/form/PasswordInput.vue";
 import {useAuthStore} from "@/stores/auth";
-import {LoginPayload} from "@/types/auth";
+import type {LoginPayload} from "@/types/auth";
 import {login} from "@/services/auth.service";
 
 const loading = ref(false)
@@ -57,11 +58,11 @@ const open = computed({
   }
 })
 
-
-async function onSubmit(values: LoginPayload) {
+const onSubmit: SubmissionHandler = async (values) => {
+  const payload = values as LoginPayload
   loading.value = true
   try {
-    const data = await login(values)
+    const data = await login(payload)
     auth.setAuth({ token: data.token, user: data.user })
 
     $q.notify({ type: 'positive', message: 'Login realizado com sucesso!' })
